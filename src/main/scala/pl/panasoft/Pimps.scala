@@ -15,6 +15,9 @@ trait Pimps {
     def andThenPerform[X] = andThen[X] _
   }
 
+  implicit class UMapOps[A](self: => A) {
+    def uMap[X](f: A => X) = f(self)
+  }
 
 }
 
