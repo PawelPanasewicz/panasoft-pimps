@@ -25,7 +25,7 @@ class AndThenSpec extends FreeSpec {
       assert(
         andThenReserved
           .andThenPerform("asd")
-          .andThen(new File("."))
+          .andThenPerform(new File("."))
           .andThenPerform(new java.net.URL("http://panasoft.pl/"))
           .andThenPerform(456)
           === 456
