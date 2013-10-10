@@ -1,3 +1,1 @@
-#!/usr/bin/env bash
-
-sbt/bin/sbt $*
+sh sbt/bin/sbt $*
