@@ -19,8 +19,11 @@ trait Pimps {
     def uMap[X](f: A => X) = f(self)
   }
 
-}
+  implicit class ModifyOps[A](self: => A) {
+    def modify(f: A => Unit): A = ???
+  }
 
+}
 
 
 object Pimps extends Pimps
