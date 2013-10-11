@@ -16,10 +16,11 @@ object Build extends Build {
     libraryDependencies ++= commonDependencies,
     testOptions in Test += Tests.Argument("-oFD") //W - without color, F - show full stack traces, S - show short stack traces, D - show durations
   )
+    .settings(net.virtualvoid.sbt.graph.Plugin.graphSettings: _*)
 
   val commonDependencies = List(
-    "org.scalatest" %% "scalatest" % "1.9.1" % "test",
-    "org.scalamock" %% "scalamock-scalatest-support" % "3.0.1" % "test"
+    "org.scalatest" % "scalatest_2.10.0" % "2.0.M5" % "test",
+    ("org.scalamock" %% "scalamock-scalatest-support" % "3.0.1" exclude("org.scalatest", "scalatest_2.10")) % "test"
   )
   val commonResolvers = List(
     "Sonatype repository releases" at "https://oss.sonatype.org/content/repositories/releases/",
