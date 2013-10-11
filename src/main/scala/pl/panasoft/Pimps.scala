@@ -2,7 +2,7 @@ package pl.panasoft
 
 trait Pimps {
 
-  implicit class AndThenOps[A](self: A) {
+  implicit class AndThenOps[A](self: => A) {
 
     def andThen[X](f: => X) = {
       self;
@@ -19,8 +19,14 @@ trait Pimps {
     def uMap[X](f: A => X) = f(self)
   }
 
-}
+  implicit class ModifyOps[A](self: => A) {
+    def modify(f: A => Unit): A = {
+      val onceCalledSelf = self
+      f(onceCalledSelf) andThen onceCalledSelf
+    }
+  }
 
+}
 
 
 object Pimps extends Pimps

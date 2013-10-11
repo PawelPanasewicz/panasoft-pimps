@@ -1,8 +1,9 @@
 package pl.panasoft
 
 import org.scalatest.FreeSpec
+import org.scalamock.scalatest.MockFactory
 
-class UMapSpec extends FreeSpec {
+class UMapSpec extends FreeSpec with MockFactory{
 
   import Pimps._
 
@@ -23,6 +24,21 @@ class UMapSpec extends FreeSpec {
         .uMap(C(_, ":)"))
 
       assert(a === b)
+    }
+
+    "uMap call wrapped object only once" in {
+      trait A{def a: String}
+      val aMock = mock[A]
+      inSequence {
+        (aMock.a _).expects().returning("a")
+      }
+
+      assert(
+        aMock.a
+        .uMap(_.toUpperCase())
+        .uMap(a => s"[${a}]")
+        === "[A]"
+      )
     }
   }
 
