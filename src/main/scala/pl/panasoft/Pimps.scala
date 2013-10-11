@@ -20,7 +20,10 @@ trait Pimps {
   }
 
   implicit class ModifyOps[A](self: => A) {
-    def modify(f: A => Unit): A = ???
+    def modify(f: A => Unit): A = {
+      val onceCalledSelf = self
+      f(onceCalledSelf) andThen onceCalledSelf
+    }
   }
 
 }
