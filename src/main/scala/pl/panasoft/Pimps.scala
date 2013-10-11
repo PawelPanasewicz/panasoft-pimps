@@ -26,6 +26,21 @@ trait Pimps {
     }
   }
 
+  implicit class AssertionOps[A](self: => A) {
+
+    def assertThat(test: A => Boolean, errMessage: String = ""): A = {
+      val onceCalledSelf = self
+      if (!test(onceCalledSelf)) throw new AssertionError(errMessage)
+      else onceCalledSelf
+    }
+
+    def throwIf[E <: RuntimeException](test: A => Boolean)(e: => E): A = {
+      val onceCalledSelf = self
+      if (test(onceCalledSelf)) throw e
+      else onceCalledSelf
+    }
+  }
+
 }
 
 
