@@ -3,8 +3,9 @@ package pl.panasoft
 import org.scalatest.FreeSpec
 import java.io.File
 import scala.beans.BeanProperty
+import org.scalamock.scalatest.MockFactory
 
-class ModifySpec extends FreeSpec {
+class ModifySpec extends FreeSpec with MockFactory{
 
    import Pimps._
 
@@ -16,21 +17,18 @@ class ModifySpec extends FreeSpec {
 
    "A `ModifyOps`" - {
      "can be used to join execution of computations performing side effects then returning wrapped object" in {
-      val jb = new JavaBean()
-      assert(jb.x === null)
-      assert(jb.y === null)
-      assert(jb.z === null)
+      val jbMock = mock[JavaBean]
+       inSequence{
+         (jbMock.setX _).expects("X")
+         (jbMock.setY _).expects("Y")
+         (jbMock.setZ _).expects("Z")
+       }
 
        //nice invocations when setupping
-       val changeJb = jb
+       jbMock
          .modify(_.setX("X"))
          .modify(_.setY("Y"))
          .modify(_.setZ("Z"))
-
-       assert(changeJb === jb)
-       assert(jb.x === "X")
-       assert(jb.y === "Y")
-       assert(jb.z === "Z")
      }
    }
  }

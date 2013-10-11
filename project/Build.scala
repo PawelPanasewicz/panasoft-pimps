@@ -13,10 +13,14 @@ object Build extends Build {
     scalaVersion := "2.10.1",
     scalacOptions ++= List("-feature", "-language:implicitConversions"),
     resolvers ++= commonResolvers,
-    libraryDependencies += "org.scalatest" %% "scalatest" % "2.0.RC1" % "test",
+    libraryDependencies ++= commonDependencies,
     testOptions in Test += Tests.Argument("-oFD") //W - without color, F - show full stack traces, S - show short stack traces, D - show durations
   )
 
+  val commonDependencies = List(
+    "org.scalatest" %% "scalatest" % "1.9.1" % "test",
+    "org.scalamock" %% "scalamock-scalatest-support" % "3.0.1" % "test"
+  )
   val commonResolvers = List(
     "Sonatype repository releases" at "https://oss.sonatype.org/content/repositories/releases/",
     "Maven central repository" at "http://repo1.maven.org/maven2/",

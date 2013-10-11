@@ -2,7 +2,7 @@ package pl.panasoft
 
 trait Pimps {
 
-  implicit class AndThenOps[A](self: A) {
+  implicit class AndThenOps[A](self: => A) {
 
     def andThen[X](f: => X) = {
       self;
