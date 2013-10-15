@@ -5,16 +5,16 @@ import scala.sys.process.{ProcessLogger, Process}
 
 object Build extends Build {
 
-  lazy val panasoftPimpsProject = Project("panasoft-pimps", file("."))
+  lazy val panasoftPimpsProject = Project("pimps", file("."))
     .settings(
     version := "0.1-SNAPHOT",
     organization := "pl.panasoft",
     organizationName := "pl.panasoft",
-    scalaVersion := "2.10.1",
+    scalaVersion := "2.10.2",
     scalacOptions ++= List("-feature", "-language:implicitConversions"),
     resolvers ++= commonResolvers,
     libraryDependencies ++= commonDependencies,
-    testOptions in Test += Tests.Argument("-oFD") //W - without color, F - show full stack traces, S - show short stack traces, D - show durations
+    testOptions in Test += Tests.Argument("-oD") //W - without color, F - show full stack traces, S - show short stack traces, D - show durations
   )
     .settings(net.virtualvoid.sbt.graph.Plugin.graphSettings: _*)
 
