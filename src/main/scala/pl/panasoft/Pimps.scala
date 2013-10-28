@@ -39,9 +39,24 @@ class AssertionOps[A](self: => A) {
   }
 }
 
+
+class WithFinallyOps[A](self: => A) {
+  def withFinally[X](finallyF: A => Any)(block: A => X): X = try {
+    block(self)
+  } finally {
+    finallyF(self)
+  }
+}
+
+
 object Pimps {
   implicit def toAndThenOps[A](a: A) = new AndThenOps(a)
+
   implicit def toUMapOps[A](a: A) = new UMapOps(a)
+
   implicit def toModifyOps[A](a: A) = new ModifyOps(a)
+
   implicit def toAssertionOps[A](a: A) = new AssertionOps(a)
+
+  implicit def toWithFinallyOps[A](a: A) = new WithFinallyOps(a)
 }
